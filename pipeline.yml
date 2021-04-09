@@ -15,8 +15,7 @@ resources:
     repository: ((image-repo-name))/statichtml-website
     username: ((registry-username))
     password: ((registry-password))
-
- jobs:
+jobs:
   - name: build-and-push
     plan:
       - get: concourse-tutorial
