@@ -18,10 +18,10 @@ resources:
 jobs:
   - name: build-and-push
     plan:
-      - get: concourse-tutorial
-      - task: build-image
-        privileged: true
-        config:
+    - get: concourse-tutorial
+    - task: build-image
+      privileged: true
+      config:
             platform: linux
             image_resource:
                 type: registry-image
@@ -32,9 +32,9 @@ jobs:
             outputs:
             - name: image
             run:
-            path: build
+                path: build
             params:
              CONTEXT: mohitdubeygithub-concoursetutorial
-       - put : statichtml-website
-         params :
+    - put: statichtml-website
+      params :
             image: image/image.tar
