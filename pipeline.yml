@@ -34,7 +34,7 @@ jobs:
             run:
             path: build
             params:
-            CONTEXT: mohitdubeygithub-concoursetutorial
+             CONTEXT: mohitdubeygithub-concoursetutorial
        - put : statichtml-website
          params :
             image: image/image.tar
