@@ -1,0 +1,41 @@
+resources:
+# The repo with our Dockerfile
+- name: concourse-tutorial
+  type: git
+  icon: github
+  source:
+    uri: git@github.com:MohitDubeyGitHub/ConcourseTutorial.git
+    branch: main
+
+# Where we will push the image to
+- name: statichtml-website
+  type: registry-image
+  icon: docker
+  source:
+    repository: ((image-repo-name))/statichtml-website
+    username: ((registry-username))
+    password: ((registry-password))
+
+ jobs:
+  - name: build-and-push
+    plan:
+      - get: concourse-tutorial
+      - task: build-image
+        privileged: true
+        config:
+            platform: linux
+            image_resource:
+                type: registry-image
+                source:
+                    repository: vito/oci-build-task
+            inputs:
+            - name: concourse-tutorial
+            outputs:
+            - name: image
+            run:
+            path: build
+            params:
+            CONTEXT: mohitdubeygithub-concoursetutorial
+       - put : statichtml-website
+         params :
+            image: image/image.tar
