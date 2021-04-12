@@ -6,15 +6,16 @@ resources:
   source:
     uri: git@github.com:MohitDubeyGitHub/ConcourseTutorial.git
     branch: main
-
+    private_key: ((private_key))
 # Where we will push the image to
 - name: statichtml-website
   type: registry-image
   icon: docker
   source:
-    repository: ((image-repo-name))/statichtml-website
+    repository: ((image-repo-name))
     username: ((registry-username))
     password: ((registry-password))
+    tag: latest
 jobs:
   - name: build-and-push
     plan:
@@ -34,7 +35,7 @@ jobs:
             run:
                 path: build
             params:
-             CONTEXT: mohitdubeygithub-concoursetutorial
+             CONTEXT: concourse-tutorial
     - put: statichtml-website
       params :
             image: image/image.tar
